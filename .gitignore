@@ -1,6 +1,7 @@
-*.png
 *.psd
 node_modules
+led/*.h
+plan.png
 Adafruit_GFX_Library
 Adafruit_HMC5883_U
 Adafruit_NeoPixel
