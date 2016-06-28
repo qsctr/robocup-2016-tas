@@ -1,0 +1,9 @@
+*.png
+*.psd
+node_modules
+Adafruit_GFX_Library
+Adafruit_HMC5883_U
+Adafruit_NeoPixel
+Adafruit_Sensor
+RGBmatrixPanel
+.vscode

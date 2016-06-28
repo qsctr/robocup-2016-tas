@@ -1,0 +1,9 @@
+{
+  "name": "picture-convert",
+  "version": "1.0.0",
+  "main": "picture-convert.js",
+  "dependencies": {
+    "get-pixels": "^3.3.0"
+  },
+  "devDependencies": {}
+}
