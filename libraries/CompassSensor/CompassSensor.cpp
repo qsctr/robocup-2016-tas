@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "CompassSensor.h"
 
-bool deg_gteq(float a, float b, float diff);
+static bool deg_gteq(float a, float b, float diff);
 
 Compass::Compass(int id)
 {
@@ -57,7 +57,7 @@ bool Compass::near(float deg)
     }
 }
 
-bool deg_gteq(float a, float b, float diff)
+static bool deg_gteq(float a, float b, float diff)
 {
     if (b >= 180) {
         return a >= (b - diff / 2) || a < b - 180;
