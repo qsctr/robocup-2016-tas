@@ -12,72 +12,87 @@
 
 void setup()
 {
-    const int start_button = 24;
-    
-    pinMode(start_button, INPUT);
-    Wheels::init(2, 4, 42, 3, 5, 43);
-    Arm arm(10);
+    const int
+        start_button = 41,
+        forward      = 130,
+        backward     = 50,
+        stop         = 90,
+        arm_up       = 30,
+        claw_open    = 160,
+        claw_close   = 70;
+
     Servo claw;
-    claw.attach(48);
+    Arm arm(10);
     Pneumatic jump(32);
-    jump.down();
     Ping ping(22);
     Compass compass(12345);
+
+    pinMode(start_button, INPUT);
+    Wheels::init(2, 4, 12, 3, 5, 11);
+    claw.attach(46);
+    jump.down();
     Serial3.begin(9600);
 
-    while (!digitalRead(start_button));
-    // Messages::wait_for(Messages::start);
-
+    Messages::wait_for(Messages::start);
     Serial3.print(Messages::start);
-
     delay(2000);
+    // Wheels::write(forward);
+    // arm.move_start(arm_up);
+    // claw.write(claw_open);
+    // jump.up_and_down_start();
+    // while (ping.over(30)) {
+    //     arm.move(1000);
+    //     jump.up_and_down();
+    // }
 
-    Wheels::write(left_forward, right_forward);
-    arm.move_start(30);
-    claw.write(160);
-    jump.up_and_down_start();
+    // jump.down();
+    // Wheels::write(stop);
+    // delay(1000);
+    // claw.write(claw_close);
+    // delay(500);
+    // Wheels::write(forward, backward);
+    // compass.record();
+    // while (!compass.near(90));
 
-    while (ping.over(30)) {
-        arm.move(1000);
-        jump.up_and_down();
-    }
+    // Wheels::write(forward);
+    // while (Wheels::avg_encoder() < 5000);
 
-    jump.down();
-    Wheels::write(90);
+    // Wheels::write(forward, backward);
+    // compass.record();
+    // while (!compass.near(90));
 
-    delay(1000);
+    // Wheels::write(forward);
+    // while (Wheels::avg_encoder() < 10000);
 
-    claw.write(70);
+    // Wheels::write(forward, backward);
+    // compass.record();
+    // while (!compass.near(90));
 
-    delay(500);
+    // Wheels::write(forward);
+    // while (ping.over(10));
 
-    turn_right_90();
+    // Wheels::write(stop);
+    // claw.write(claw_open);
+    // delay(500);
+    // Wheels::write(backward);
+    // while (!ping.over(50));
 
-    forward(5000);
+    // Wheels::write(stop);
+    // arm.motor.write(110);
+    // delay(500);
+    // arm.motor.write(90);
 
-    turn_right_90();
+    // Wheels::write(forward);
+    // delay(1000);
+    // Wheels::write(backward);
+    // delay(1000);
+    // Wheels::write(stop);
 
-    forward(10000);
-
-    turn_right(90);
-
-    
-
-}
-
-void forward(int enc)
-{
-    Wheels::write(150, 130);
-    while (Wheels::avg_encoder() < enc);
-}
-
-void turn_right_90()
-{
+    Wheels::write(forward, backward);
     compass.record();
-    Wheels::write(130, 50);
-    do {
-        delay(200);
-    } while (!(Wheels::avg_encoder() > 200 && compass.near(90)));
+    while (!compass.near(90));
+
+    Wheels::write(stop);
 }
 
 void loop() {}

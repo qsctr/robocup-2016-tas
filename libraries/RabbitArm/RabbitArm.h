@@ -9,6 +9,7 @@ struct Arm
     Arm(int pin);
     void move_start(int power);
     void move(int ms);
+    void move_sync(int power);
     Servo motor;
     unsigned long time;
     bool prev;

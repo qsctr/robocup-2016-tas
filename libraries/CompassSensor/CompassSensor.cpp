@@ -1,10 +1,14 @@
 #include <Arduino.h>
 #include "CompassSensor.h"
 
+bool deg_gteq(float a, float b, float diff);
+
 Compass::Compass(int id)
 {
     sensor = Adafruit_HMC5883_Unified(id);
-    sensor.begin();
+    if (!sensor.begin()) {
+        Serial3.println("Error initializing compass sensor");
+    }
 }
 
 void Compass::record()
@@ -34,7 +38,9 @@ bool Compass::near(float deg)
         } else {
             diff = curr - prev;
         }
-        return !deg_gteq(prev, abs_deg, diff) && deg_gteq(curr, abs_deg, diff);
+        float temp_prev = prev;
+        prev = curr;
+        return !deg_gteq(temp_prev, abs_deg, diff) && deg_gteq(curr, abs_deg, diff);
     } else {
         if (curr >= 180) {
             if (prev >= curr) {
@@ -45,7 +51,9 @@ bool Compass::near(float deg)
         } else {
             diff = prev - curr;
         }
-        return deg_gteq(prev, abs_deg, diff) && !deg_gteq(curr, abs_deg, diff);
+        float temp_prev = prev;
+        prev = curr;
+        return deg_gteq(temp_prev, abs_deg, diff) && !deg_gteq(curr, abs_deg, diff);
     }
 }
 
