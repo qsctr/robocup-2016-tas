@@ -10,7 +10,9 @@ struct Dress
     Dress(int pin);
     Adafruit_NeoPixel lights;
     void blue();
+    void blue_sync();
     void rainbow();
+    void rainbow_sync();
 
     private:
         uint32_t Wheel(byte WheelPos);

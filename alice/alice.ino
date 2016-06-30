@@ -14,12 +14,22 @@
 void setup()
 {
     const int
-        
+        forward  = 120,
+        backward = 60,
+        stop     = 90;
 
-    Dress dress(43);
-    AsyncServo 
+    Compass compass(12345);
+    // Dress dress(43);
+    Wheels::init(3, 5, 13, 2, 4, 12);
     Serial3.begin(9600);
-
+    
+    Messages::wait_for(Messages::start);
+    Serial3.println(Messages::start);
+    delay(2000);
+    // Wheels::write(forward, backward);
+    compass.record();
+    while (!compass.near(90));
+    // Wheels::write(stop);
 }
 
 void loop() {}

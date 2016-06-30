@@ -47,6 +47,26 @@ void Dress::blue()
     }
 }
 
+void Dress::blue_sync()
+{
+    for (int i = 0; i < lights.numPixels(); i++) {
+        for (int p = i; p < lights.numPixels();) {
+            for (int x = 0; x < 48; x += 3) {
+                lights.setPixelColor(p, lights.Color(blue_array[x], blue_array[x + 1], blue_array[x + 2]));
+                p++;
+            }
+        }
+        for (int r = i; r >= 0;) {
+            for (int x = 45; x >= -1; x -= 3) {
+                lights.setPixelColor(r, lights.Color(blue_array[x], blue_array[x + 1], blue_array[x + 2]));
+                r--;
+            }
+        }
+        lights.show();
+        delay(15);
+    }
+}
+
 uint32_t Wheel();
 
 void Dress::rainbow()
@@ -76,22 +96,23 @@ void Dress::rainbow()
         }
         lights.show();
         time = millis();
-    }
-    
-    // Synchronous blocking version
+    }    
+}
 
-    // for (int j = 0; j < 256; j+= 8) {
-    //     for (int q = 0; q < 3; q++) {
-    //         for (uint16_t i = 0; i < lights.numPixels(); i += 3) {
-    //             lights.setPixelColor(i + q, Wheel((i + j) & 255));
-    //         }
-    //         lights.show();
-    //         delay(50);
-    //         for (uint16_t i = 0; i < lights.numPixels(); i += 3) {
-    //             lights.setPixelColor(i + q, 0);
-    //         }
-    //     }
-    // }
+void Dress::rainbow_sync()
+{
+    for (int j = 0; j < 256; j+= 8) {
+        for (int q = 0; q < 3; q++) {
+            for (uint16_t i = 0; i < lights.numPixels(); i += 3) {
+                lights.setPixelColor(i + q, Wheel((i + j) & 255));
+            }
+            lights.show();
+            delay(50);
+            for (uint16_t i = 0; i < lights.numPixels(); i += 3) {
+                lights.setPixelColor(i + q, 0);
+            }
+        }
+    }
 }
 
 uint32_t Dress::Wheel(byte WheelPos)

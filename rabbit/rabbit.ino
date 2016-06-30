@@ -14,8 +14,8 @@ void setup()
 {
     const int
         start_button = 42,
-        forward      = 130,
-        backward     = 50,
+        forward      = 150,
+        backward     = 30,
         stop         = 90,
         arm_up       = 30,
         arm_down     = 110,
