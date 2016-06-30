@@ -14,10 +14,10 @@ void setup()
 {
     const int
         start_button = 42,
-        forward      = 150,
-        backward     = 30,
+        forward      = 130,
+        backward     = 50,
         stop         = 90,
-        arm_up       = 30,
+        arm_up       = 60,
         arm_down     = 110,
         claw_open    = 160,
         claw_close   = 70;
@@ -40,67 +40,64 @@ void setup()
 
     delay(2000);
 
-    Wheels::write(forward);
-    arm.move_start(arm_up);
-    claw.write(claw_open);
-    jump.up_and_down_start();
+    // Wheels::write(150, 130);
+    // arm.move_start(arm_up);
+    // claw.write(claw_open);
+    // jump.up_and_down_start();
 
-    while (ping.over(30)) {
-        arm.move(2000);
-        jump.up_and_down();
-    }
+    // while (ping.over(15)) {
+    //     arm.move(400);
+    //     jump.up_and_down();
+    // }
 
-    jump.down();
+    // jump.down();
+    // Wheels::write(stop);
+
+    // delay(3000);
+
+    // claw.write(claw_close);
+
+    // delay(1000);
+
+    // Wheels::write(150, 30);
+    // Wheels::reset_encoder();
+
+    // while (Wheels::avg_encoder() < 4000);
+
+    // Wheels::write(150, 130);
+
+    // Wheels::reset_encoder();
+    // while (Wheels::avg_encoder() < 6000);
+
+    // Wheels::write(150, 50);
+    // Wheels::reset_encoder();
+
+    // while (Wheels::avg_encoder() < 4000);
+
+    // Wheels::write(forward);
+
+    // while (ping.over(20));
+
+    // Wheels::write(stop);
+    // claw.write(claw_open);
+
+    // delay(500);
+
+    // Wheels::write(backward);
+
+    // while (!ping.over(50));
+
+    // Wheels::write(stop);
+    // arm.motor.write(arm_down);
+
+    // delay(500);
+
+    // arm.motor.write(90);
+
+    Wheels::write(150, 30);
+    Wheels::reset_encoder();
+    while (Wheels::avg_encoder() < 4500);
     Wheels::write(stop);
-
-    delay(1000);
-
-    claw.write(claw_close);
-
-    delay(500);
-
-    Wheels::write(forward, backward);
-    compass.record();
-
-    while (!compass.near(90));
-
-    Wheels::write(forward);
-
-    while (Wheels::avg_encoder() < 5000);
-
-    Wheels::write(forward, backward);
-    compass.record();
-
-    while (!compass.near(90));
-
-    Wheels::write(forward);
-
-    while (Wheels::avg_encoder() < 10000);
-
-    Wheels::write(forward, backward);
-    compass.record();
-
-    while (!compass.near(90));
-
-    Wheels::write(forward);
-
-    while (ping.over(10));
-
-    Wheels::write(stop);
-    claw.write(claw_open);
-
-    delay(500);
-
-    Wheels::write(backward);
-
-    while (!ping.over(50));
-
-    Wheels::write(stop);
-    arm.motor.write(arm_down);
-
-    delay(500);
-
-    arm.motor.write(90);
 }
 
 void loop() {}

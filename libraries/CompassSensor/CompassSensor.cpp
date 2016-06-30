@@ -27,33 +27,33 @@ bool Compass::near(float deg)
     if (abs_deg < 0) {
         abs_deg += 360;
     }
-    float diff;
+    // float diff;
     if (deg_gteq(curr, prev, 0)) {
-        if (prev >= 180) {
-            if (curr >= prev) {
-                diff = curr - prev;
-            } else {
-                diff = curr + 360 - prev;
-            }
-        } else {
-            diff = curr - prev;
-        }
-        float temp_prev = prev;
-        prev = curr;
-        return !deg_gteq(temp_prev, abs_deg, diff) && deg_gteq(curr, abs_deg, diff);
+        // if (prev >= 180) {
+        //     if (curr >= prev) {
+        //         diff = curr - prev;
+        //     } else {
+        //         diff = curr + 360 - prev;
+        //     }
+        // } else {
+        //     diff = curr - prev;
+        // }
+        // float temp_prev = prev;
+        // prev = curr;
+        return !deg_gteq(/*temp_prev*/prev, abs_deg, /*diff*/0) && deg_gteq(curr, abs_deg, /*diff*/0);
     } else {
-        if (curr >= 180) {
-            if (prev >= curr) {
-                diff = prev - curr;
-            } else {
-                diff = prev + 360 - curr;
-            }
-        } else {
-            diff = prev - curr;
-        }
-        float temp_prev = prev;
-        prev = curr;
-        return deg_gteq(temp_prev, abs_deg, diff) && !deg_gteq(curr, abs_deg, diff);
+        // if (curr >= 180) {
+        //     if (prev >= curr) {
+        //         diff = prev - curr;
+        //     } else {
+        //         diff = prev + 360 - curr;
+        //     }
+        // } else {
+        //     diff = prev - curr;
+        // }
+        // float temp_prev = prev;
+        // prev = curr;
+        return deg_gteq(/*temp_prev*/prev, abs_deg, /*diff*/0) && !deg_gteq(curr, abs_deg, /*diff*/0);
     }
 }
 

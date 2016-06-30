@@ -14,10 +14,10 @@ void Pneumatic::up_and_down_start()
 void Pneumatic::up_and_down()
 {
     unsigned long curr = millis();
-    if (curr - time > 2000) {
+    if (curr - time > 1000) {
         down();
         up_and_down_start();
-    } else if (curr - time > 1000) {
+    } else if (curr - time > 500) {
         up();
     }
 }

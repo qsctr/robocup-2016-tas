@@ -11,6 +11,7 @@ struct Wheels
     static void write(int power);
     static void write(int l_power, int r_power);
     static long avg_encoder();
+    static void reset_encoder();
     static Servo left_motor, right_motor;
     static volatile long left_encoder_raw, right_encoder_raw;
     static int left_encoder_pin_a, left_encoder_pin_b, left_motor_pin,

@@ -42,6 +42,11 @@ long Wheels::avg_encoder()
     return (abs(left_encoder_raw) + abs(right_encoder_raw)) / 2;
 }
 
+void Wheels::reset_encoder()
+{
+    left_encoder_raw = right_encoder_raw = 0;
+}
+
 void l_enc_cb()
 {
     if (digitalRead(Wheels::left_encoder_pin_b))

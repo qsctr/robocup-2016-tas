@@ -20,6 +20,7 @@ void AsyncServo::move(int ms)
 
 void AsyncServo::move_cond(bool cond)
 {
+    Serial3.println(motor.read());
     if (!prev && cond) {
         prev = true;
         motor.write(stay_power);

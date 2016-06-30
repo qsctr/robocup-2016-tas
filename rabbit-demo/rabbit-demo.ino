@@ -13,8 +13,8 @@
 void setup()
 {
     const int
-        forward = 150,
-        backward = 30,
+        forward = 120,
+        backward = 60,
         stop = 90,
         arm_up = 30,
         arm_down = 100,
@@ -37,30 +37,30 @@ void setup()
         if (Serial3.available()) {
             switch (Serial3.read()) {
                 case 'w':
-                    Wheels::write(forward);
+                    Wheels::write(150, 130);
                     break;
                 case 's':
-                    Wheels::write(backward);
+                    Wheels::write(30, 50);
                     break;
                 case 'a':
-                    Wheels::write(backward, forward);
+                    Wheels::write(stop, forward);
                     break;
                 case 'd':
-                    Wheels::write(forward, backward);
+                    Wheels::write(forward, stop);
                     break;
                 case ' ':
                     Wheels::write(stop);
                     break;
                 case 'q':
-                    Wheels::write(backward, forward);
-                    compass.record();
-                    while (!compass.near(-90));
+                    Wheels::write(stop, forward);
+                    Wheels::reset_encoder();
+                    while (Wheels::avg_encoder() < 2200);
                     Wheels::write(stop);
                     break;
                 case 'e':
-                    Wheels::write(forward, backward);
-                    compass.record();
-                    while (!compass.near(90));
+                    Wheels::write(forward, stop);
+                    Wheels::reset_encoder();
+                    while (Wheels::avg_encoder() < 2200);
                     Wheels::write(stop);
                     break;
                 case 'u':
@@ -88,9 +88,10 @@ void setup()
             }
         }
         Serial3.print("Ping distance (cm): ");
-        Serial3.println(ping.cm());
-        Serial3.print("Compass (degrees from north): ");
-        Serial3.println(compass.angle());
+        Serial3.print(ping.cm());
+        Serial3.print(" Compass (degrees from north): ");
+        Serial3.print(compass.angle());
+        Serial3.println();
         delay(100);
     }
 }

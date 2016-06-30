@@ -1,17 +1,27 @@
+#include <Servo.h>
+
 #include <Messages.h>
+#include <Ping.h>
 
 void setup()
 {
-    const int button = 42,
-        door_left = 32,
-        door_right = 33;
-    pinMode(Pins::button, INPUT);
-    pinMode(Pins::door_left, OUTPUT);
-    pinMode(Pins::door_right, OUTPUT);
-    digitalWrite(door_left, HIGH);
+    Servo motor;
+    motor.attach(10);
+    motor.write(87);
+    Ping ping(9);
     Serial.begin(9600);
-    Messages::wait_for(Messages::start);
-    while (!digitalRead(button));
-    digitalWrite(door_left, LOW);
-    digitalWrite(door_right, HIGH);
+
+    // Messages::wait_for(Messages::start);
+    // while (ping.over(50));
+    // motor.write(140);
+    // delay(6300);
+    // motor.write(87);
+    // Serial.print(Messages::door_change);
+
+    Messages::wait_for('z');
+    motor.write(40);
+    delay(6300);
+    motor.write(87);
 }
+
+void loop() {}
