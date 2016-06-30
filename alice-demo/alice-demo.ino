@@ -14,8 +14,8 @@
 void setup()
 {
     const int
-        forward = 150,
-        backward = 30,
+        forward = 120,
+        backward = 60,
         stop = 90,
         right_arm_up = 108,
         right_arm_down = 78,
@@ -23,7 +23,7 @@ void setup()
         elbow_down = 70,
         claw_open = 70,
         claw_close = 0,
-        center_up = 75,
+        center_up = 80,
         center_down = 100;
 
     Servo right_arm;
@@ -31,14 +31,21 @@ void setup()
     Servo claw;
     Servo center;
     Ping height(8);
-    Ping distance(9);
+    // Ping distance(9);
     Dress dress(43);
+    Compass compass(12345);
 
     Wheels::init(3, 5, 13, 2, 4, 12);
-    right_arm.attach(14);
+    right_arm.attach(44);
     elbow.attach(11);
     claw.attach(46);
+    center.attach(45);
     Serial3.begin(9600);
+
+    Wheels::write(90);
+    right_arm.write(85);
+    elbow.write(90);
+    center.write(95);
     
     bool rainbow = false;
     while (1) {
@@ -116,10 +123,26 @@ void setup()
                     break;
             }
         }
-        Serial.print("Ping height (cm): ");
-        Serial3.println(h);
-        Serial.print("Ping distance (cm): ");
-        Serial3.println(distance.cm());
+        Serial3.print(h);
+        Serial3.print(" ");
+        Serial3.print(Wheels::left_motor.read());
+        Serial3.print(" ");
+        Serial3.print(Wheels::left_encoder_raw);
+        Serial3.print(" ");
+        Serial3.print(Wheels::right_motor.read());
+        Serial3.print(" ");
+        Serial3.print(Wheels::right_encoder_raw);
+        Serial3.print(" ");
+        Serial3.print(right_arm.read());
+        Serial3.print(" ");
+        Serial3.print(elbow.read());
+        Serial3.print(" ");
+        Serial3.print(claw.read());
+        Serial3.print(" ");
+        Serial3.print(center.read());
+        Serial3.println();
+        // Serial3.print("Ping distance (cm): ");
+        // Serial3.println(distance.cm());
         if (rainbow) {
             dress.rainbow();
         } else {
@@ -128,3 +151,5 @@ void setup()
         delay(15);
     }
 }
+
+void loop() {}

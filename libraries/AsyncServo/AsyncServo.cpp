@@ -15,7 +15,12 @@ void AsyncServo::move_start(int power)
 
 void AsyncServo::move(int ms)
 {
-    if (!prev && millis() - time > ms) {
+    move_cond(millis() - time > ms);
+}
+
+void AsyncServo::move_cond(bool cond)
+{
+    if (!prev && cond) {
         prev = true;
         motor.write(stay_power);
     }

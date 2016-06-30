@@ -9,6 +9,7 @@ struct AsyncServo
     AsyncServo(int pin, int stay_power);
     void move_start(int power);
     void move(int ms);
+    void move_cond(bool cond);
     Servo motor;
     unsigned long time;
     bool prev;
