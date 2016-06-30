@@ -39,7 +39,6 @@ void setup()
 
     Wheels::init(3, 5, 13, 2, 4, 12);
     claw.attach(46);
-    center.attach(45);
     Serial3.begin(9600);
     center.motor.write(95);
     claw.write(claw_open);
