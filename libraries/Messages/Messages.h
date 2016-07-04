@@ -5,7 +5,11 @@
 
 namespace Messages
 {
-    const char start = 'a', door_change = 'b';
+    const char
+        start         = 'a',
+        door_change   = 'b',
+        paint_flowers = 'c',
+        put_cup       = 'd';
     void wait_for(char message);
 };
 

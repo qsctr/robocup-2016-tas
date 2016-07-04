@@ -10,7 +10,7 @@
 #include "roses_white.h"
 
 // change this when compiling for different arduino
-#define PANEL 2
+#define PANEL 0
 /* ________
   |0 |1 |2 | 
   |__|__|__| */
@@ -29,22 +29,15 @@ RGBmatrixPanel matrix(A, B, C, D, CLK, LAT, OE, false, 64);
 
 #if PANEL == 2
 
-#define PING_PIN 5
-
 void setup()
 {
+    pinMode(MESSAGE_PIN, OUTPUT);
+    Serial3.begin(9600);
     matrix.begin();
-    draw_picture(intro);
-    // pinMode(MESSAGE_PIN, OUTPUT);
-    // // Serial3.begin(9600);
-    // matrix.begin();
-    // // Messages::wait_for(Messages::start);
-    // draw_and_send(intro);
-    // while (ping_cm() > 50) delay(100);
-    // draw_and_send(roses_white);
-    // delay(5000);
-    // while (ping_cm() > 50) delay(100);
-    // draw_and_send(roses_red);
+    Messages::wait_for(Messages::start);
+    draw_and_send(intro);
+    Messages::wait_for(Messages::door_change);
+    draw_and_send(roses_white);
 }
 
 void draw_and_send(const byte p[64][96][4])
@@ -52,19 +45,7 @@ void draw_and_send(const byte p[64][96][4])
     digitalWrite(MESSAGE_PIN, HIGH);
     draw_picture(p);
     delay(50);
-    digitalWrite(MESSAGE_PIN, HIGH);
-}
-
-long ping_cm()
-{
-    pinMode(PING_PIN, OUTPUT);
-    digitalWrite(PING_PIN, LOW);
-    delayMicroseconds(2);
-    digitalWrite(PING_PIN, HIGH);
-    delayMicroseconds(5);
-    digitalWrite(PING_PIN, LOW);
-    pinMode(PING_PIN, INPUT);
-    return pulseIn(PING_PIN, HIGH) / 29 / 2;
+    digitalWrite(MESSAGE_PIN, LOW);
 }
 
 #else
@@ -72,9 +53,9 @@ long ping_cm()
 void setup()
 {
     pinMode(MESSAGE_PIN, INPUT);
+    matrix.begin();
     wait_to_draw(intro);
     wait_to_draw(roses_white);
-    wait_to_draw(roses_red);
 }
 
 void wait_to_draw(const byte p[64][96][4])
@@ -92,7 +73,7 @@ void draw_picture(const byte p[64][96][4])
 {
     for (int i = 0; i < 64; i++) {
         for (int j = 32 * PANEL; j < 32 * (PANEL + 1); j++) {
-            matrix.drawPixel(j, i, matrix.Color333(
+            matrix.drawPixel(i, 31 - (j - 32 * PANEL), matrix.Color333(
                 pgm_read_byte(&(p[i][j][0])),
                 pgm_read_byte(&(p[i][j][1])),
                 pgm_read_byte(&(p[i][j][2]))));

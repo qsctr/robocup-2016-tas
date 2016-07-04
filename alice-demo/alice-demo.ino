@@ -14,36 +14,49 @@
 void setup()
 {
     const int
-        forward = 120,
-        backward = 60,
+        forward = 110,
+        backward = 70,
+        forward_l = 110,
+        forward_r = 111,
+        backward_l = 70,
+        backward_r = 69,
         stop = 90,
+        stop_l = 87,
+        stop_r = 89,
         right_arm_up = 108,
         right_arm_down = 78,
         elbow_up = 150,
         elbow_down = 70,
         claw_open = 70,
         claw_close = 0,
-        center_up = 80,
-        center_down = 100;
+        center_up = 70,
+        center_down = 105;
+
+    pinMode(12, OUTPUT);
+    pinMode(11, OUTPUT);
+    pinMode(44, OUTPUT);
+    pinMode(10, OUTPUT);
+    pinMode(46, OUTPUT);
+    pinMode(45, OUTPUT);
 
     Servo right_arm;
     Servo elbow;
     Servo claw;
     Servo center;
     Ping height(8);
-    // Ping distance(9);
-    Dress dress(43);
+    // Ping distance(7);
+    Dress dress(28);
     Compass compass(12345);
 
-    Wheels::init(3, 5, 13, 2, 4, 12);
+    Wheels::init(3, 5, 12, 2, 4, 11);
     right_arm.attach(44);
-    elbow.attach(11);
+    elbow.attach(10);
     claw.attach(46);
     center.attach(45);
     Serial3.begin(9600);
 
-    Wheels::write(90);
-    right_arm.write(85);
+    Wheels::write(stop_l, stop_r);
+    right_arm.write(95);
     elbow.write(90);
     center.write(95);
     
@@ -53,18 +66,19 @@ void setup()
         if (Serial3.available()) {
             switch (Serial3.read()) {
                 case 'w':
-                    Wheels::write(forward);
+                    Wheels::write(forward_l, forward_r);
                     break;
                 case 's':
-                    Wheels::write(backward);
+                    Wheels::write(backward_l, backward_r);
                     break;
                 case 'a':
                     Wheels::write(backward, forward);
                     break;
                 case 'd':
                     Wheels::write(forward, backward);
+                    break;
                 case ' ':
-                    Wheels::write(stop);
+                    Wheels::write(stop_l, stop_r);
                     break;
                 case 'q':
                     Wheels::write(backward, forward);

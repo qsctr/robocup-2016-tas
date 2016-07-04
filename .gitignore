@@ -1,6 +1,7 @@
 *.psd
 node_modules
 led/*.h
+super-matrix/*.h
 plan.png
 Adafruit_GFX_Library
 Adafruit_HMC5883_U
