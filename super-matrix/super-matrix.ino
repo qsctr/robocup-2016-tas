@@ -30,7 +30,7 @@
 
 RGBmatrixPanel matrix(A, B, C, D, CLK, LAT, OE, false, 64);
 
-#if PANEL == 2
+#if PANEL == 0
 
 void setup()
 {
